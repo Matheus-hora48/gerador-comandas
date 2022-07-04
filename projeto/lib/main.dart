@@ -57,7 +57,7 @@ class _homePageState extends State<homePage> {
         .replaceAll(':', '-');
     final name = "screenshot_$time";
     await requestPermission(Permission.storage);
-    //await ImageGallerySaver.saveImage(bytes, name: name);
+    await ImageGallerySaver.saveImage(bytes, name: name);
   }
 
   @override
@@ -65,36 +65,41 @@ class _homePageState extends State<homePage> {
     return Screenshot(
       controller: screenshotController,
       child: Scaffold(
-          backgroundColor: Colors.brown,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.network(
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
-                height: 200,
-                width: 200,
+        backgroundColor: Colors.brown,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.network(
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
+              height: 200,
+              width: 200,
+            ),
+            const Text(
+              '53',
+              style: TextStyle(
+                fontSize: 35.0,
+                fontWeight: FontWeight.w900,
               ),
-              const Text(
-                '53',
-                style: TextStyle(
-                  fontSize: 35.0,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            SizedBox(
+              height: 200,
+              child: SfBarcodeGenerator(
+                value: number,
+                symbology: QRCode(),
               ),
-              SizedBox(
-                height: 200,
-                child: SfBarcodeGenerator(
-                  value: number,
-                  symbology: QRCode(),
-                ),
-              ),
-              SizedBox(
-                width: 200,
-                height: 80,
-                child: SfBarcodeGenerator(value: number),
-              )
-            ],
-          )),
+            ),
+            SizedBox(
+              width: 200,
+              height: 80,
+              child: SfBarcodeGenerator(value: number),
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {saveToGallery(context)},
+          child: const Icon(Icons.save),
+        ),
+      ),
     );
   }
 }
