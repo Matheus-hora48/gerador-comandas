@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,65 +28,45 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String numero = '52';
 
   @override
   Widget build(BuildContext context) {
-    String? num;
-
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Gerador de comandas'),
-          centerTitle: true,
-        ),
-        body: const Center());
-  }
-}
-
-class areaForm extends StatefulWidget {
-  const areaForm({Key? key}) : super(key: key);
-
-  @override
-  State<areaForm> createState() => _areaFormState();
-}
-
-class _areaFormState extends State<areaForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    String? number;
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Enter your email',
+        backgroundColor: Colors.brown,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.network(
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
+              height: 200,
+              width: 200,
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-            onSaved: (String? value) {
-              number = value;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {}
-                print(number);
-              },
-              child: const Text('Submit'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Text(
+                  '53',
+                  style: TextStyle(
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 200,
+                  child: SfBarcodeGenerator(
+                    value: numero,
+                    symbology: QRCode(),
+                  ),
+                )
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+            SizedBox(
+              width: 200,
+              height: 80,
+              child: SfBarcodeGenerator(value: numero),
+            )
+          ],
+        ));
   }
 }
