@@ -1,4 +1,9 @@
+import 'dart:ffi';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:projeto/utils/util.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
@@ -29,13 +34,36 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  ScreenshotController = ScreenshotController = ScreenshotController();
-  String numero = '52';
+  ScreenshotController screenshotController = ScreenshotController();
+  String number = '52';
+
+  saveToGallery(BuildContext context) {
+    if (number.isNotEmpty) {
+      screenshotController.capture().then((Uint8List? image) {
+        saveImage(image!);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Imagem salva na galeria.'),
+          ),
+        );
+      }).catchError((e) => print(e));
+    }
+  }
+
+  saveImage(Uint8List bytes) async {
+    final time = DateTime.now()
+        .toIso8601String()
+        .replaceAll('.', '-')
+        .replaceAll(':', '-');
+    final name = "screenshot_$time";
+    await requestPermission(Permission.storage);
+    //await ImageGallerySaver.saveImage(bytes, name: name);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Screenshot(
-      controller: ScreenshotController,
+      controller: screenshotController,
       child: Scaffold(
           backgroundColor: Colors.brown,
           body: Column(
@@ -46,29 +74,24 @@ class _homePageState extends State<homePage> {
                 height: 200,
                 width: 200,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text(
-                    '53',
-                    style: TextStyle(
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: SfBarcodeGenerator(
-                      value: numero,
-                      symbology: QRCode(),
-                    ),
-                  )
-                ],
+              const Text(
+                '53',
+                style: TextStyle(
+                  fontSize: 35.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 200,
+                child: SfBarcodeGenerator(
+                  value: number,
+                  symbology: QRCode(),
+                ),
               ),
               SizedBox(
                 width: 200,
                 height: 80,
-                child: SfBarcodeGenerator(value: numero),
+                child: SfBarcodeGenerator(value: number),
               )
             ],
           )),
