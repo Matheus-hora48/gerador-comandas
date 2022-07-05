@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -36,10 +35,10 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   ScreenshotController screenshotController = ScreenshotController();
-  String number = '52';
+  final String _number = '52';
 
   saveToGallery(BuildContext context) {
-    if (number.isNotEmpty) {
+    if (_number.isNotEmpty) {
       screenshotController.capture().then((Uint8List? image) {
         saveImage(image!);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -58,7 +57,7 @@ class _homePageState extends State<homePage> {
         .replaceAll(':', '-');
     final name = "screenshot_$time";
     await requestPermission(Permission.storage);
-    //await ImageGallerySaver.saveImage(bytes, name: name);
+    await ImageGallerySaver.saveImage(bytes, name: name);
   }
 
   @override
@@ -76,7 +75,7 @@ class _homePageState extends State<homePage> {
               width: 200,
             ),
             const Text(
-              '53',
+              '52',
               style: TextStyle(
                 fontSize: 35.0,
                 fontWeight: FontWeight.w900,
@@ -85,14 +84,14 @@ class _homePageState extends State<homePage> {
             SizedBox(
               height: 200,
               child: SfBarcodeGenerator(
-                value: number,
+                value: _number,
                 symbology: QRCode(),
               ),
             ),
             SizedBox(
               width: 200,
               height: 80,
-              child: SfBarcodeGenerator(value: number),
+              child: SfBarcodeGenerator(value: _number),
             )
           ],
         ),
