@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:projeto/utils/util.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,7 +58,7 @@ class _homePageState extends State<homePage> {
         .replaceAll(':', '-');
     final name = "screenshot_$time";
     await requestPermission(Permission.storage);
-    await ImageGallerySaver.saveImage(bytes, name: name);
+    //await ImageGallerySaver.saveImage(bytes, name: name);
   }
 
   @override
