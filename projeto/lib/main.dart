@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projeto/form_page.dart';
@@ -22,7 +21,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const FormPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FormPage(),
+        '/home': (context) => homePage(),
+      },
     );
   }
 }
@@ -36,7 +39,9 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   ScreenshotController screenshotController = ScreenshotController();
+  int sizeNumber = 11;
   final String _number = '52';
+  int number = 0;
 
   saveToGallery(BuildContext context) {
     if (_number.isNotEmpty) {
@@ -59,6 +64,15 @@ class _homePageState extends State<homePage> {
     final name = "screenshot_$time";
     await requestPermission(Permission.storage);
     await ImageGallerySaver.saveImage(bytes, name: name);
+  }
+
+  criandoComandas() {
+    setState(() async {
+      for (int x = 1; x <= sizeNumber; x++) {
+        SizedBox(child: SfBarcodeGenerator(value: x.toString()));
+        await saveToGallery(context);
+      }
+    });
   }
 
   @override
@@ -85,22 +99,19 @@ class _homePageState extends State<homePage> {
             SizedBox(
               height: 200,
               child: SfBarcodeGenerator(
-                value: _number,
+                value: '23',
                 symbology: QRCode(),
               ),
             ),
             SizedBox(
               width: 200,
               height: 80,
-              child: SfBarcodeGenerator(value: _number),
+              child: SfBarcodeGenerator(value: '1'),
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => {saveToGallery(context)},
-          child: const Icon(Icons.save),
-        ),
       ),
     );
+    ;
   }
 }

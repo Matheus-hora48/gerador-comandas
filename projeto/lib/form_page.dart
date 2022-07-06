@@ -14,16 +14,8 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
-  bool showStartButton = true;
-  //late final ComandasControllers controller;
-  late final Stream<NumerosEvent> numerosStream;
-
-  start() {
-    //controller = ComandasControllers(quantidade: [Numeros(numeros: 20)]);
-    setState(() {
-      showStartButton = false;
-    });
-  }
+  String comandas = '';
+  int sizeNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,26 +28,26 @@ class _FormPageState extends State<FormPage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          showStartButton
-              ? ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Começar a criação"),
-                )
-              : StreamBuilder(
-                  builder: (context, AsyncSnapshot<NumerosEvent> snapshot) {
-                    NumerosEvent? event = snapshot.data;
-                    if (snapshot.hasError) {
-                      return const Text("erro");
-                    } else if (event is StartEvents) {
-                      return const Text("Iniciando geração");
-                    } else if (event is EndEvent) {
-                      return const Text("Treino finalizado");
-                    } else if (event is NumerosEvent) {
-                      return GeradorComandas(event: event);
-                    }
-                    return Container();
-                  },
-                )
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              onChanged: (text) => {comandas = text},
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: 'Quantas comandas',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          SizedBox(height: 15),
+          RaisedButton(
+            onPressed: () {
+              sizeNumber = int.tryParse(comandas)!;
+              Navigator.of(context).pushNamed('/home');
+              print(sizeNumber);
+            },
+            child: Text('Confirmar'),
+          ),
         ],
       )),
     );
