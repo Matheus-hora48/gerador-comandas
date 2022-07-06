@@ -100,7 +100,7 @@ class _homePageState extends State<homePage> {
             ),
             const Text(
               '1',
-              style: TextStyle(
+              style: TextStyle( 
                 fontSize: 45.0,
                 fontWeight: FontWeight.w900,
               ),
