@@ -1,8 +1,9 @@
-class Numeros {
-  int seconds;
-  int numeros;
-  Numeros({
-    required this.numeros,
-    required this.seconds,
+class Comandas {
+  int valor;
+
+
+  Comandas({
+    required this.valor,
+
   });
 }

@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto/controllers/comandas_controllers.dart';
-import 'package:projeto/events/end_events.dart';
-import 'package:projeto/events/numeros_events.dart';
-import 'package:projeto/events/start_events.dart';
-import 'package:projeto/gerador.dart';
-import 'package:projeto/models/numeros.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({Key? key}) : super(key: key);
@@ -14,11 +8,19 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
+  final myControllerNumber = TextEditingController();
   String comandas = '';
   int sizeNumber = 0;
 
+  abriNovaPagina() {}
+
   @override
   Widget build(BuildContext context) {
+    void _openSecondScreen() {
+      Navigator.pushReplacementNamed(context, "/home",
+          arguments: {"valor": myControllerNumber.value.text});
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gerador de comandas'),
@@ -33,6 +35,7 @@ class _FormPageState extends State<FormPage> {
             child: TextField(
               onChanged: (text) => {comandas = text},
               keyboardType: TextInputType.number,
+              controller: myControllerNumber,
               decoration: const InputDecoration(
                 labelText: 'Quantas comandas',
                 border: OutlineInputBorder(),
@@ -41,11 +44,7 @@ class _FormPageState extends State<FormPage> {
           ),
           const SizedBox(height: 15),
           RaisedButton(
-            onPressed: () {
-              sizeNumber = int.tryParse(comandas)!;
-              Navigator.of(context).pushNamed('/home');
-              print(sizeNumber);
-            },
+            onPressed: () => _openSecondScreen(),
             child: const Text('Confirmar'),
           ),
         ],
