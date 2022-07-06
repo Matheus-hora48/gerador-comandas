@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projeto/form_page.dart';
+import 'package:projeto/utils/delay.dart';
 import 'package:projeto/utils/util.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
@@ -23,8 +24,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => FormPage(),
-        '/home': (context) => homePage(),
+        '/': (context) => const FormPage(),
+        '/home': (context) => const homePage(),
       },
     );
   }
@@ -39,7 +40,7 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   ScreenshotController screenshotController = ScreenshotController();
-  int sizeNumber = 11;
+  int sizeNumber = 5;
   final String _number = '52';
   int number = 0;
 
@@ -61,7 +62,7 @@ class _homePageState extends State<homePage> {
         .toIso8601String()
         .replaceAll('.', '-')
         .replaceAll(':', '-');
-    final name = "screenshot_$time";
+    final name = "screenshot_$time-$sizeNumber";
     await requestPermission(Permission.storage);
     await ImageGallerySaver.saveImage(bytes, name: name);
   }
@@ -69,7 +70,8 @@ class _homePageState extends State<homePage> {
   criandoComandas() {
     setState(() async {
       for (int x = 1; x <= sizeNumber; x++) {
-        SizedBox(child: SfBarcodeGenerator(value: x.toString()));
+        print(x);
+        await delay();
         await saveToGallery(context);
       }
     });
@@ -84,10 +86,13 @@ class _homePageState extends State<homePage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.network(
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
-              height: 200,
-              width: 200,
+            GestureDetector(
+              onTap: () => criandoComandas(),
+              child: Image.network(
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
+                height: 200,
+                width: 200,
+              ),
             ),
             const Text(
               '52',
@@ -112,6 +117,5 @@ class _homePageState extends State<homePage> {
         ),
       ),
     );
-    ;
   }
 }

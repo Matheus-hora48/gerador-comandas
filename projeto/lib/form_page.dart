@@ -33,20 +33,20 @@ class _FormPageState extends State<FormPage> {
             child: TextField(
               onChanged: (text) => {comandas = text},
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Quantas comandas',
                 border: OutlineInputBorder(),
               ),
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           RaisedButton(
             onPressed: () {
               sizeNumber = int.tryParse(comandas)!;
               Navigator.of(context).pushNamed('/home');
               print(sizeNumber);
             },
-            child: Text('Confirmar'),
+            child: const Text('Confirmar'),
           ),
         ],
       )),
