@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:projeto/form_page.dart';
+import 'package:projeto/pags/finalizada.dart';
+import 'package:projeto/pags/form_page.dart';
 import 'package:projeto/utils/delay.dart';
 import 'package:projeto/utils/util.dart';
 import 'package:screenshot/screenshot.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const FormPage(),
         '/home': (context) => const homePage(),
+        '/finalizada': (context) => const FinalizadaComandas(),
       },
     );
   }
@@ -67,6 +69,7 @@ class _homePageState extends State<homePage> {
     await ImageGallerySaver.saveImage(bytes, name: name);
   }
 
+  @override
   criandoComandas(valor) async {
     sizeNumber = int.tryParse(valor)!;
     // setState(() async {
@@ -86,6 +89,7 @@ class _homePageState extends State<homePage> {
       });
       await delay();
     }
+    Navigator.pushReplacementNamed(context, "/finalizada");
   }
 
   @override
@@ -113,8 +117,7 @@ class _homePageState extends State<homePage> {
             ),
             Text(
               numeroConvertido,
-              
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 45.0,
                 fontWeight: FontWeight.w900,
               ),

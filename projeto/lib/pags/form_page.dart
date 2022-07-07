@@ -45,7 +45,9 @@ class _FormPageState extends State<FormPage> {
           const SizedBox(height: 15),
           RaisedButton(
             onPressed: () => _openSecondScreen(),
-            child: const Text('Confirmar'),
+            color: Colors.red,
+            child: const Text('Confirmar',
+                style: TextStyle(fontSize: 16, color: Colors.white)),
           ),
         ],
       )),
