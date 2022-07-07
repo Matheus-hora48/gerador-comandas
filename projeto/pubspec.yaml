@@ -41,6 +41,7 @@ dependencies:
   gallery_saver: ^2.3.2
   permission_handler: ^8.3.0
   image_gallery_saver: '^1.6.8'
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({Key? key}) : super(key: key);
@@ -8,6 +11,7 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
+  XFile? logo;
   final myControllerNumber = TextEditingController();
   String comandas = '';
   int sizeNumber = 0;
@@ -19,6 +23,17 @@ class _FormPageState extends State<FormPage> {
     void _openSecondScreen() {
       Navigator.pushReplacementNamed(context, "/home",
           arguments: {"valor": myControllerNumber.value.text});
+    }
+
+    enviarLogo() async {
+      final ImagePicker picker = ImagePicker();
+
+      try {
+        XFile? file = await picker.pickImage(source: ImageSource.gallery);
+        if (file != null) setState(() => logo = file);
+      } catch (e) {
+        print(e);
+      }
     }
 
     return Scaffold(
@@ -41,6 +56,12 @@ class _FormPageState extends State<FormPage> {
                 border: OutlineInputBorder(),
               ),
             ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.attach_file),
+            title: const Text('Enviar logo'),
+            onTap: enviarLogo,
+            trailing: logo != null ? Image.file(File(logo!.path)) : null,
           ),
           const SizedBox(height: 15),
           RaisedButton(

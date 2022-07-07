@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projeto/utils/delay.dart';
 import 'package:projeto/utils/util.dart';
@@ -22,6 +23,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
   int numeroFor = 0;
   int sizeNumber = 0;
   final String _number = '52';
+  String ticket = '0';
 
   saveToGallery(BuildContext context) {
     if (_number.isNotEmpty) {
@@ -52,7 +54,8 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
     for (numeroFor = 1; numeroFor <= sizeNumber; numeroFor++) {
       numberTest = numeroFor;
       numeroConvertido = numberTest.toString();
-
+      await readQRCode();
+      await delay();
       await saveToGallery(context);
       setState(() {
         numeroConvertido;
@@ -60,6 +63,14 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
       await delay();
     }
     Navigator.pushReplacementNamed(context, "/finalizada");
+  }
+
+  readQRCode() async {
+    String code = await FlutterBarcodeScanner.scanBarcode(
+        "#FFFFFF", "Cancelar", false, ScanMode.QR);
+    setState(() {
+      ticket = code != '-1' ? code : "Não validado";
+    });
   }
 
   @override
@@ -95,7 +106,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
             SizedBox(
               height: 200,
               child: SfBarcodeGenerator(
-                value: numeroConvertido,
+                value: ticket,
                 symbology: QRCode(),
               ),
             ),
