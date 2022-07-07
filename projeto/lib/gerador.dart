@@ -40,7 +40,7 @@ class _homePageState extends State<homePage> {
   String numeroConvertido = '0';
   int numberTest = 0;
   int numeroFor = 0;
-  int sizeNumber = 5;
+  int sizeNumber = 0;
   final String _number = '52';
   int number = 0;
 
@@ -48,11 +48,11 @@ class _homePageState extends State<homePage> {
     if (_number.isNotEmpty) {
       screenshotController.capture().then((Uint8List? image) {
         saveImage(image!);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Imagem salva na galeria.'),
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('Imagem salva na galeria.'),
+        //   ),
+        // );
       }).catchError((e) => print(e));
     }
   }
@@ -67,16 +67,25 @@ class _homePageState extends State<homePage> {
     await ImageGallerySaver.saveImage(bytes, name: name);
   }
 
-  criandoComandas(valor) {
+  criandoComandas(valor) async {
     sizeNumber = int.tryParse(valor)!;
-    setState(() async {
-      for (numeroFor = 1; numeroFor <= sizeNumber; numeroFor++) {
-        numberTest = numeroFor;
-        numeroConvertido = numberTest.toString();
-        await delay();
-        await saveToGallery(context);
-      }
-    });
+    // setState(() async {
+    //   numeroFor++;
+    //   numberTest = numeroFor;
+    //   numeroConvertido = numberTest.toString();
+    //   await saveToGallery(context);
+    //   print(numeroFor);
+    // });
+    for (numeroFor = 1; numeroFor <= sizeNumber; numeroFor++) {
+      numberTest = numeroFor;
+      numeroConvertido = numberTest.toString();
+
+      await saveToGallery(context);
+      setState(() {
+        numeroConvertido;
+      });
+      await delay();
+    }
   }
 
   @override
@@ -91,16 +100,20 @@ class _homePageState extends State<homePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             GestureDetector(
-              onTap: () => criandoComandas(valor),
+              onTap: () {
+                setState(() {
+                  criandoComandas(valor);
+                });
+              },
               child: Image.network(
                 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
                 height: 200,
                 width: 200,
               ),
             ),
-            const Text(
-              '1',
-              style: TextStyle( 
+            Text(
+              numeroConvertido,
+              style: TextStyle(
                 fontSize: 45.0,
                 fontWeight: FontWeight.w900,
               ),
@@ -108,14 +121,14 @@ class _homePageState extends State<homePage> {
             SizedBox(
               height: 200,
               child: SfBarcodeGenerator(
-                value: '1',
+                value: numeroConvertido,
                 symbology: QRCode(),
               ),
             ),
             SizedBox(
               width: 200,
               height: 80,
-              child: SfBarcodeGenerator(value: '1'),
+              child: SfBarcodeGenerator(value: numeroConvertido),
             )
           ],
         ),
