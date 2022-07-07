@@ -113,6 +113,7 @@ class _homePageState extends State<homePage> {
             ),
             Text(
               numeroConvertido,
+              
               style: TextStyle(
                 fontSize: 45.0,
                 fontWeight: FontWeight.w900,
