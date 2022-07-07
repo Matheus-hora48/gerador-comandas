@@ -1,8 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:projeto/pags/finalizada.dart';
-import 'package:projeto/pags/form_page.dart';
 import 'package:projeto/utils/delay.dart';
 import 'package:projeto/utils/util.dart';
 import 'package:screenshot/screenshot.dart';
@@ -10,34 +8,14 @@ import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'dart:core';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class GeradorLeitor extends StatefulWidget {
+  const GeradorLeitor({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Gerador de comandas",
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const FormPage(),
-        '/home': (context) => const homePage(),
-        '/finalizada': (context) => const FinalizadaComandas(),
-      },
-    );
-  }
+  State<GeradorLeitor> createState() => _GeradorLeitorState();
 }
 
-class homePage extends StatefulWidget {
-  const homePage({Key? key}) : super(key: key);
-
-  @override
-  State<homePage> createState() => _homePageState();
-}
-
-class _homePageState extends State<homePage> {
+class _GeradorLeitorState extends State<GeradorLeitor> {
   ScreenshotController screenshotController = ScreenshotController();
   String numeroConvertido = '0';
   int numberTest = 0;
