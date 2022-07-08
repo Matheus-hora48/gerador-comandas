@@ -92,7 +92,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
             alignment: Alignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 240),
+                padding: const EdgeInsets.only(top: 250),
                 child: Container(
                   width: 220,
                   height: 220,
@@ -103,7 +103,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 640),
+                padding: const EdgeInsets.only(top: 680),
                 child: Container(
                   width: 220,
                   height: 100,
