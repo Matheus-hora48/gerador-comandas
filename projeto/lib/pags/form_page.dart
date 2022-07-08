@@ -13,16 +13,22 @@ class FormPage extends StatefulWidget {
 class _FormPageState extends State<FormPage> {
   XFile? logo;
   final myControllerNumber = TextEditingController();
+  final myControllerColors = TextEditingController();
   String comandas = '';
   int sizeNumber = 0;
+  String colorIncio = '0xFF';
+  String colorFinal = '';
 
   abriNovaPagina() {}
 
   @override
   Widget build(BuildContext context) {
-    void _openSecondScreen() {
-      Navigator.pushReplacementNamed(context, "/home",
-          arguments: {"valor": myControllerNumber.value.text});
+    void _openSecondScreen() async {
+      colorFinal = colorIncio + myControllerColors.value.text;
+      Navigator.pushReplacementNamed(context, "/home", arguments: {
+        "valor": myControllerNumber.value.text,
+        "color": colorFinal
+      });
     }
 
     enviarLogo() async {
@@ -53,6 +59,18 @@ class _FormPageState extends State<FormPage> {
               controller: myControllerNumber,
               decoration: const InputDecoration(
                 labelText: 'Quantas comandas',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              onChanged: (text) => {comandas = text},
+              controller: myControllerColors,
+              decoration: const InputDecoration(
+                labelText: 'Digite uma cor hexadecinal',
+                hintText: 'ex: 7D79D0',
                 border: OutlineInputBorder(),
               ),
             ),

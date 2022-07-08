@@ -24,6 +24,9 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
   int sizeNumber = 0;
   final String _number = '52';
   String ticket = '0';
+  int colorBody = 0;
+  int colorIncio = 0xFF;
+  int colorFinal = 0;
 
   saveToGallery(BuildContext context) {
     if (_number.isNotEmpty) {
@@ -77,47 +80,77 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context)!.settings.arguments as Map;
     final valor = routeArgs['valor'];
+    final color = routeArgs['color'];
+
+    colorBody = int.tryParse(color)!;
+
     return Screenshot(
       controller: screenshotController,
       child: Scaffold(
-        backgroundColor: Colors.brown,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  criandoComandas(valor);
-                });
-              },
-              child: Image.network(
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
-                height: 200,
-                width: 200,
+          backgroundColor: Color(colorBody),
+          body: Stack(
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 240),
+                child: Container(
+                  width: 220,
+                  height: 220,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-            Text(
-              numeroConvertido,
-              style: const TextStyle(
-                fontSize: 45.0,
-                fontWeight: FontWeight.w900,
+              Padding(
+                padding: const EdgeInsets.only(top: 640),
+                child: Container(
+                  width: 220,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 200,
-              child: SfBarcodeGenerator(
-                value: ticket,
-                symbology: QRCode(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        criandoComandas(valor);
+                      });
+                    },
+                    child: Image.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
+                      height: 200,
+                      width: 200,
+                    ),
+                  ),
+                  Text(
+                    numeroConvertido,
+                    style: const TextStyle(
+                      fontSize: 60.0,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: SfBarcodeGenerator(
+                      value: ticket,
+                      symbology: QRCode(),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 200,
+                    height: 80,
+                    child: SfBarcodeGenerator(value: numeroConvertido),
+                  )
+                ],
               ),
-            ),
-            SizedBox(
-              width: 200,
-              height: 80,
-              child: SfBarcodeGenerator(value: numeroConvertido),
-            )
-          ],
-        ),
-      ),
+            ],
+          )),
     );
   }
 }
