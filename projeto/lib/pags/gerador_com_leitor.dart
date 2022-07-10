@@ -1,6 +1,9 @@
+import 'dart:html';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projeto/utils/delay.dart';
 import 'package:projeto/utils/util.dart';
@@ -81,6 +84,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
     final routeArgs = ModalRoute.of(context)!.settings.arguments as Map;
     final valor = routeArgs['valor'];
     final color = routeArgs['color'];
+    final file = routeArgs['file'];
 
     colorBody = int.tryParse(color)!;
 
@@ -122,8 +126,9 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
                         criandoComandas(valor);
                       });
                     },
-                    child: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
+                    child: Image.file(
+                      file,
+                      fit: BoxFit.cover,
                       height: 200,
                       width: 200,
                     ),

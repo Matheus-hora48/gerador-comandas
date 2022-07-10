@@ -18,6 +18,8 @@ class _FormPageState extends State<FormPage> {
   int sizeNumber = 0;
   String colorIncio = '0xFF';
   String colorFinal = '';
+  XFile? logoFinal;
+  File? imagefile;
 
   abriNovaPagina() {}
 
@@ -27,7 +29,8 @@ class _FormPageState extends State<FormPage> {
       colorFinal = colorIncio + myControllerColors.value.text;
       Navigator.pushReplacementNamed(context, "/home", arguments: {
         "valor": myControllerNumber.value.text,
-        "color": colorFinal
+        "color": colorFinal,
+        "file": imagefile,
       });
     }
 
@@ -36,6 +39,7 @@ class _FormPageState extends State<FormPage> {
 
       try {
         XFile? file = await picker.pickImage(source: ImageSource.gallery);
+        File? imagefile = File(logo!.path);
         if (file != null) setState(() => logo = file);
       } catch (e) {
         print(e);
