@@ -1,7 +1,8 @@
 import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:projeto/pags/gerador_com_leitor.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({Key? key}) : super(key: key);
@@ -14,23 +15,26 @@ class _FormPageState extends State<FormPage> {
   XFile? logo;
   final myControllerNumber = TextEditingController();
   final myControllerColors = TextEditingController();
+  final myControllerLogo = TextEditingController();
+
   String comandas = '';
   int sizeNumber = 0;
   String colorIncio = '0xFF';
   String colorFinal = '';
-  XFile? logoFinal;
-  File? imagefile;
+  // XFile? logoFinal;
+  // File? imagefile;
 
   abriNovaPagina() {}
 
   @override
   Widget build(BuildContext context) {
     void _openSecondScreen() async {
+      File? arq = await Get.to(() => GeradorLeitor(file: file));
       colorFinal = colorIncio + myControllerColors.value.text;
       Navigator.pushReplacementNamed(context, "/home", arguments: {
         "valor": myControllerNumber.value.text,
         "color": colorFinal,
-        "file": imagefile,
+        "file": logo,
       });
     }
 
@@ -39,7 +43,6 @@ class _FormPageState extends State<FormPage> {
 
       try {
         XFile? file = await picker.pickImage(source: ImageSource.gallery);
-        File? imagefile = File(logo!.path);
         if (file != null) setState(() => logo = file);
       } catch (e) {
         print(e);
@@ -80,11 +83,10 @@ class _FormPageState extends State<FormPage> {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.attach_file),
-            title: const Text('Enviar logo'),
-            onTap: enviarLogo,
-            trailing: logo != null ? Image.file(File(logo!.path)) : null,
-          ),
+              leading: const Icon(Icons.attach_file),
+              title: const Text('Enviar logo'),
+              onTap: enviarLogo,
+              trailing: logo != null ? Image.file(File(logo!.path)) : null),
           const SizedBox(height: 15),
           RaisedButton(
             onPressed: () => _openSecondScreen(),

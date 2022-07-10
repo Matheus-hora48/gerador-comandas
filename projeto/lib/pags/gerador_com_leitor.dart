@@ -1,3 +1,4 @@
+// import 'dart:html';
 import 'dart:html';
 import 'dart:io';
 import 'dart:typed_data';
@@ -30,6 +31,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
   int colorBody = 0;
   int colorIncio = 0xFF;
   int colorFinal = 0;
+  File file;
 
   saveToGallery(BuildContext context) {
     if (_number.isNotEmpty) {
@@ -84,7 +86,6 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
     final routeArgs = ModalRoute.of(context)!.settings.arguments as Map;
     final valor = routeArgs['valor'];
     final color = routeArgs['color'];
-    final file = routeArgs['file'];
 
     colorBody = int.tryParse(color)!;
 
