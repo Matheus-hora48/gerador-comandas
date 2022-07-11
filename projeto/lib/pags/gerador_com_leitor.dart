@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projeto/utils/delay.dart';
 import 'package:projeto/utils/util.dart';
@@ -97,8 +95,8 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
               Padding(
                 padding: const EdgeInsets.only(top: 255),
                 child: Container(
-                  width: 220,
-                  height: 220,
+                  width: 200,
+                  height: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white,
