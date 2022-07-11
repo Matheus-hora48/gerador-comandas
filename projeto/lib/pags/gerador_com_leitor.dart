@@ -82,6 +82,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
     final valor = routeArgs['valor'];
     final color = routeArgs['color'];
     var arquivo = routeArgs['arquivo'];
+    final fundo = routeArgs['fundo'];
 
     colorBody = int.tryParse(color)!;
 
@@ -92,11 +93,17 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
           body: Stack(
             alignment: Alignment.center,
             children: [
+              Image.file(
+                fundo ?? 'assets/img/transparente.png',
+                fit: BoxFit.cover,
+                width: 1000,
+                height: 1000,
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 255),
                 child: Container(
-                  width: 200,
-                  height: 200,
+                  width: 215,
+                  height: 215,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white,

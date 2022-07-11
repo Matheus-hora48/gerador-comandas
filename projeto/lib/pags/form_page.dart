@@ -13,6 +13,7 @@ class _FormPageState extends State<FormPage> {
   final myControllerNumber = TextEditingController();
   final myControllerColors = TextEditingController();
   File? arquivo;
+  File? fundo;
   final picker = ImagePicker();
 
   String comandas = '';
@@ -30,8 +31,18 @@ class _FormPageState extends State<FormPage> {
         "valor": myControllerNumber.value.text,
         "color": colorFinal,
         "arquivo": arquivo,
+        "fundo": fundo,
       });
       // File? arq = await Get.to(() => GeradorLeitor(file: file));
+    }
+
+    void _openThirdScreen() async {
+      colorFinal = colorIncio + myControllerColors.value.text;
+      Navigator.pushReplacementNamed(context, "/home", arguments: {
+        "valor": myControllerNumber.value.text,
+        "color": colorFinal,
+        "arquivo": arquivo,
+      });
     }
 
     enviarLogo() async {
@@ -39,6 +50,14 @@ class _FormPageState extends State<FormPage> {
 
       if (file != null) {
         setState(() => arquivo = File(file.path));
+      }
+    }
+
+    enviarFundo() async {
+      PickedFile? fileTwo = await picker.getImage(source: ImageSource.gallery);
+
+      if (fileTwo != null) {
+        setState(() => fundo = File(fileTwo.path));
       }
     }
 
@@ -75,15 +94,32 @@ class _FormPageState extends State<FormPage> {
               ),
             ),
           ),
+          const SizedBox(height: 15),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Preencha todas as informações para gerar suas comandas(Pode ser usado uma cor solida no fundo ou uma imagem da sua preferencia)',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
           ListTile(
               leading: const Icon(Icons.attach_file),
               title: const Text('Enviar logo'),
               onTap: enviarLogo,
               trailing:
                   arquivo != null ? Image.file(File(arquivo!.path)) : null),
+          const SizedBox(height: 20),
+          ListTile(
+              leading: const Icon(Icons.attach_file),
+              title: const Text('Enviar imagem de fundo'),
+              onTap: enviarFundo,
+              trailing: fundo != null ? Image.file(File(fundo!.path)) : null),
           const SizedBox(height: 15),
           RaisedButton(
-            onPressed: () => _openSecondScreen(),
+            onPressed: () =>
+                fundo != null ? _openSecondScreen() : _openThirdScreen(),
             color: Colors.red,
             child: const Text('Confirmar',
                 style: TextStyle(fontSize: 16, color: Colors.white)),
