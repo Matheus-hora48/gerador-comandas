@@ -1,9 +1,6 @@
 import 'dart:io';
-import 'dart:ui';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:projeto/pags/gerador_com_leitor.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({Key? key}) : super(key: key);
@@ -55,7 +52,7 @@ class _FormPageState extends State<FormPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               onChanged: (text) => {comandas = text},
               keyboardType: TextInputType.number,
@@ -67,7 +64,7 @@ class _FormPageState extends State<FormPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               onChanged: (text) => {comandas = text},
               controller: myControllerColors,
@@ -79,11 +76,11 @@ class _FormPageState extends State<FormPage> {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.attach_file),
-            title: const Text('Enviar logo'),
-            onTap: enviarLogo,
-            // trailing: logo != null ? Image.file(File(logo!.path)) : null
-          ),
+              leading: const Icon(Icons.attach_file),
+              title: const Text('Enviar logo'),
+              onTap: enviarLogo,
+              trailing:
+                  arquivo != null ? Image.file(File(arquivo!.path)) : null),
           const SizedBox(height: 15),
           RaisedButton(
             onPressed: () => _openSecondScreen(),
