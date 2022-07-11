@@ -119,7 +119,7 @@ class _FormPageState extends State<FormPage> {
           const SizedBox(height: 15),
           RaisedButton(
             onPressed: () =>
-                fundo != null ? _openSecondScreen() : _openThirdScreen(),
+                fundo?.length()  3 ? _openSecondScreen() : _openThirdScreen(),
             color: Colors.red,
             child: const Text('Confirmar',
                 style: TextStyle(fontSize: 16, color: Colors.white)),
