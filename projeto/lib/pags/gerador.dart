@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const FormPage(),
-        '/home': (context) => const GeradorLeitor(),
+        '/home': (context) => GeradorLeitor(),
         '/finalizada': (context) => const FinalizadaComandas(),
       },
     );

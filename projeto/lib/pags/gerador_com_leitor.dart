@@ -1,5 +1,3 @@
-// import 'dart:html';
-import 'dart:html';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -31,7 +29,6 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
   int colorBody = 0;
   int colorIncio = 0xFF;
   int colorFinal = 0;
-  File file;
 
   saveToGallery(BuildContext context) {
     if (_number.isNotEmpty) {
@@ -86,6 +83,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
     final routeArgs = ModalRoute.of(context)!.settings.arguments as Map;
     final valor = routeArgs['valor'];
     final color = routeArgs['color'];
+    var arquivo = routeArgs['arquivo'];
 
     colorBody = int.tryParse(color)!;
 
@@ -128,7 +126,7 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
                       });
                     },
                     child: Image.file(
-                      file,
+                      arquivo,
                       fit: BoxFit.cover,
                       height: 200,
                       width: 200,
