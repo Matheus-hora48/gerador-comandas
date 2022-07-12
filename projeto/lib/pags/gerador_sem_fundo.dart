@@ -9,14 +9,14 @@ import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'dart:core';
 
-class GeradorLeitor extends StatefulWidget {
-  const GeradorLeitor({Key? key}) : super(key: key);
+class GeradorSemFundo extends StatefulWidget {
+  const GeradorSemFundo({Key? key}) : super(key: key);
 
   @override
-  State<GeradorLeitor> createState() => _GeradorLeitorState();
+  State<GeradorSemFundo> createState() => _GeradorSemFundoState();
 }
 
-class _GeradorLeitorState extends State<GeradorLeitor> {
+class _GeradorSemFundoState extends State<GeradorSemFundo> {
   ScreenshotController screenshotController = ScreenshotController();
   String numeroConvertido = '0';
   int numberTest = 0;

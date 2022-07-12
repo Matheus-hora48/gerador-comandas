@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:projeto/pags/finalizada.dart';
 import 'package:projeto/pags/form_page.dart';
 import 'package:projeto/pags/gerador_com_leitor.dart';
+import 'package:projeto/pags/gerador_sem_fundo.dart';
 import 'package:projeto/utils/delay.dart';
 import 'package:projeto/utils/util.dart';
 import 'package:screenshot/screenshot.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const FormPage(),
         '/home': (context) => const GeradorLeitor(),
         '/finalizada': (context) => const FinalizadaComandas(),
+        '/semfundo': (context) => const GeradorSemFundo(),
       },
     );
   }

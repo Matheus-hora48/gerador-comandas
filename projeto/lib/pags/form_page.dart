@@ -38,7 +38,7 @@ class _FormPageState extends State<FormPage> {
 
     void _openThirdScreen() async {
       colorFinal = colorIncio + myControllerColors.value.text;
-      Navigator.pushReplacementNamed(context, "/home", arguments: {
+      Navigator.pushReplacementNamed(context, "/semfundo", arguments: {
         "valor": myControllerNumber.value.text,
         "color": colorFinal,
         "arquivo": arquivo,
@@ -119,7 +119,7 @@ class _FormPageState extends State<FormPage> {
           const SizedBox(height: 15),
           RaisedButton(
             onPressed: () =>
-                fundo?.length()  3 ? _openSecondScreen() : _openThirdScreen(),
+                fundo == null ? _openThirdScreen() : _openSecondScreen(),
             color: Colors.red,
             child: const Text('Confirmar',
                 style: TextStyle(fontSize: 16, color: Colors.white)),

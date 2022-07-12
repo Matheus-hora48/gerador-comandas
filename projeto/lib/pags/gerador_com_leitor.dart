@@ -144,11 +144,13 @@ class _GeradorLeitorState extends State<GeradorLeitor> {
                       fontWeight: FontWeight.w900,
                     ),
                   ),
-                  SizedBox(
-                    height: 200,
-                    child: SfBarcodeGenerator(
-                      value: ticket,
-                      symbology: QRCode(),
+                  GestureDetector(
+                    child: SizedBox(
+                      height: 200,
+                      child: SfBarcodeGenerator(
+                        value: ticket,
+                        symbology: QRCode(),
+                      ),
                     ),
                   ),
                   SizedBox(
