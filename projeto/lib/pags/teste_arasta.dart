@@ -9,14 +9,14 @@ import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'dart:core';
 
-class GeradorSemFundo extends StatefulWidget {
-  const GeradorSemFundo({Key? key}) : super(key: key);
+class GeradorArrasta extends StatefulWidget {
+  const GeradorArrasta({Key? key}) : super(key: key);
 
   @override
-  State<GeradorSemFundo> createState() => _GeradorSemFundoState();
+  State<GeradorArrasta> createState() => _GeradorArrastaState();
 }
 
-class _GeradorSemFundoState extends State<GeradorSemFundo> {
+class _GeradorArrastaState extends State<GeradorArrasta> {
   ScreenshotController screenshotController = ScreenshotController();
   String numeroConvertido = '0';
   int numberTest = 0;
@@ -127,6 +127,12 @@ class _GeradorSemFundoState extends State<GeradorSemFundo> {
                           criandoComandas(valor);
                         });
                       },
+                      onPanUpdate: (details) {
+                        setState(() {
+                          offset = Offset(offset.dx + details.delta.dx,
+                              offset.dy + details.delta.dy);
+                        });
+                      },
                       child: Image.file(
                         arquivo,
                         fit: BoxFit.cover,
@@ -135,23 +141,11 @@ class _GeradorSemFundoState extends State<GeradorSemFundo> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    left: offset.dx,
-                    right: offset.dy,
-                    child: GestureDetector(
-                      child: Text(
-                        numeroConvertido,
-                        style: const TextStyle(
-                          fontSize: 60.0,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      onPanUpdate: (details) {
-                        setState(() {
-                          offset = Offset(offset.dx + details.delta.dx,
-                              offset.dy + details.delta.dy);
-                        });
-                      },
+                  Text(
+                    numeroConvertido,
+                    style: const TextStyle(
+                      fontSize: 60.0,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                   SizedBox(
