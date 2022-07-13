@@ -135,23 +135,11 @@ class _GeradorSemFundoState extends State<GeradorSemFundo> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    left: offset.dx,
-                    right: offset.dy,
-                    child: GestureDetector(
-                      child: Text(
-                        numeroConvertido,
-                        style: const TextStyle(
-                          fontSize: 60.0,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      onPanUpdate: (details) {
-                        setState(() {
-                          offset = Offset(offset.dx + details.delta.dx,
-                              offset.dy + details.delta.dy);
-                        });
-                      },
+                  Text(
+                    numeroConvertido,
+                    style: const TextStyle(
+                      fontSize: 60.0,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                   SizedBox(
