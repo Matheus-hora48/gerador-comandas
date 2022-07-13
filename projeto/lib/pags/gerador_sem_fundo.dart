@@ -27,7 +27,6 @@ class _GeradorSemFundoState extends State<GeradorSemFundo> {
   int colorBody = 0;
   int colorIncio = 0xFF;
   int colorFinal = 0;
-  Offset offset = Offset.zero;
 
   saveToGallery(BuildContext context) {
     if (_number.isNotEmpty) {
@@ -119,8 +118,6 @@ class _GeradorSemFundoState extends State<GeradorSemFundo> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Positioned(
-                    left: offset.dx,
-                    right: offset.dy,
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
